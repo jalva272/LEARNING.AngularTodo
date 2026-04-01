@@ -9,10 +9,17 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class TodoListComponent implements OnInit {
-  todos: Todo[] = [];
+  // COMPONENT STATE
+  todos: Todo[] = []; // stores the list of todos fetched from the backend
+  newTodo = { // stores the title and completion status for the new todo being created
+    title: '',
+    isComplete: false
+  }
 
+  // INITIALIZE PRIVATE FIELDS
   constructor(private http: HttpClient, private todoService: TodoService) {}
 
+  // USE EFFECT
   ngOnInit(): void {
     this.load(); 
   }
@@ -27,7 +34,28 @@ export class TodoListComponent implements OnInit {
         console.error('Error fetching data from backend:', error);
       }
     })
+  }
 
+  // EVENT HANDLERS
+  onCreateHandler(): void {
+    // verify newTodo object before sending to backend
+    console.log('newTodo object:', this.newTodo);
+    if (!this.newTodo) return;
+
+    this.todoService.create(this.newTodo).subscribe({
+      // handle successful creation
+      next: () => {
+        // reset newTodo form state
+        this.newTodo = {
+          title: '',
+          isComplete: false
+        }
+        // reload page to show new todo in list
+        this.load();
+      },
+      // handle error case
+      error: (err: any) => console.error(err)
+    })
   }
 
 }

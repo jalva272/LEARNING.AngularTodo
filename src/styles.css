@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+form {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+}
+
+label, input {
+    margin: 6px 0px;
+}

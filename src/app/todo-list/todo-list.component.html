@@ -1,11 +1,21 @@
 <h2>Todo List</h2>
 
+<!-- CREATE -->
+ <form (ngSubmit)="onCreateHandler()">
+  <input type="text" name="title" placeholder="Enter a new todo" [(ngModel)]="newTodo.title" />
+  <label>
+    <input type="checkbox" name="isComplete" [(ngModel)]="newTodo.isComplete" />
+    Completed
+  </label>
+  <button type="submit">Add Todo</button>
+ </form>
+
 <hr />
 
 <ul *ngIf="todos.length > 0; else noTodos">
   <li *ngFor="let todo of todos" style="margin-bottom: 12px;">
     
-    <strong>{{ todo.title }}</strong>
+    <strong>{{ todo.title }}</strong> 
 
     <span style="margin-left: 8px;">
       ({{ todo.isComplete ? 'Completed' : 'Pending' }})
@@ -22,6 +32,8 @@
 <ng-template #noTodos>
   <p>No todos yet.</p>
 </ng-template>
+
+
 
 
 
