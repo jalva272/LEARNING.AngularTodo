@@ -1,0 +1,50 @@
+<h2>Todo List</h2>
+
+<hr />
+
+<ul *ngIf="todos.length > 0; else noTodos">
+  <li *ngFor="let todo of todos" style="margin-bottom: 12px;">
+    
+    <strong>{{ todo.title }}</strong>
+
+    <span style="margin-left: 8px;">
+      ({{ todo.isComplete ? 'Completed' : 'Pending' }})
+    </span>
+
+    <small style="margin-left: 8px; color: gray;">
+      {{ todo.createdAt | date:'short' }}
+    </small>
+
+  </li>
+</ul>
+
+
+<ng-template #noTodos>
+  <p>No todos yet.</p>
+</ng-template>
+
+
+
+
+
+
+
+
+
+
+<!-- <div>
+  <h3>Todos</h3>
+  
+  <label for="users">Users: </label>
+  <select name="users" id="users">
+    <option value="">Select a user</option>
+    <option *ngFor="let user of userdata" value="{{ user.id }}">{{ user.title }}</option>
+  </select>
+
+  <ul>
+    <li *ngFor="let t of todos">
+      <input type="checkbox" [checked]="t.isComplete" (change)="toggleComplete(t)" /> {{ t.title }}
+      <button (click)="remove(t)">Delete</button>
+    </li>
+  </ul>
+</div> -->
