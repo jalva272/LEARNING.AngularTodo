@@ -15,6 +15,14 @@ export class TodoListComponent implements OnInit {
     title: '',
     isComplete: false
   }
+  isEditOpen: boolean = false; // tracks whether the edit modal is open or closed
+  editTodo = {
+    id: 0,
+    title: '',
+    isComplete: false,
+    createdAt: ''
+  }
+  
 
   // INITIALIZE PRIVATE FIELDS
   constructor(private http: HttpClient, private todoService: TodoService) {}
@@ -52,6 +60,33 @@ export class TodoListComponent implements OnInit {
         }
         // reload page to show new todo in list
         this.load();
+      },
+      // handle error case
+      error: (err: any) => console.error(err)
+    })
+  }
+
+  onOpenEditModal(todo: Todo): void {
+    console.log('editTodo state before :', this.editTodo);
+
+    this.editTodo = { ...todo }; // create a copy of the todo to edit
+    console.log('editTodo state after opening modal:', this.editTodo);
+
+    this.isEditOpen = true; // open the edit modal
+  }
+
+  onCloseEditModal(): void {
+    this.isEditOpen = false; // close the edit modal
+  }
+
+  onUpdateHandler(): void {
+    console.log('Updating todo:', this.editTodo);
+
+      this.todoService.update(this.editTodo.id, this.editTodo).subscribe({
+      // handle successful update
+      next: () => {
+        this.isEditOpen = false; // close the edit modal
+        this.load(); // reload page to show updated todo in list
       },
       // handle error case
       error: (err: any) => console.error(err)
