@@ -82,11 +82,31 @@ export class TodoListComponent implements OnInit {
   onUpdateHandler(): void {
     console.log('Updating todo:', this.editTodo);
 
-      this.todoService.update(this.editTodo.id, this.editTodo).subscribe({
+    this.todoService.update(this.editTodo.id, this.editTodo).subscribe({
       // handle successful update
       next: () => {
         this.isEditOpen = false; // close the edit modal
         this.load(); // reload page to show updated todo in list
+      },
+      // handle error case
+      error: (err: any) => console.error(err)
+    })
+  }
+
+  onDeleteHandler(id: number): void {
+    console.log('Deleting todo:', id);
+
+    if (!confirm("Are you sure you want to delete this todo?")) {
+      return;
+    }
+
+    console.log('this.todos before deletion:', this.todos);
+    this.todoService.delete(id).subscribe({
+      // handle successful deletion
+      next: () => {
+        // remove the deleted todo from component state without reloading the page
+        this.todos = this.todos.filter(todo => todo.id !== id); // filter out the deleted todo from the list
+        console.log('this.todos after deletion:', this.todos);
       },
       // handle error case
       error: (err: any) => console.error(err)

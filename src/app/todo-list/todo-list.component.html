@@ -34,7 +34,6 @@
   <li *ngFor="let todo of todos" style="margin-bottom: 12px;">
     
     <strong>{{ todo.title }}</strong> 
-
     <span style="margin-left: 8px;">
       ({{ todo.isComplete ? 'Completed' : 'Pending' }})
     </span>
@@ -45,6 +44,8 @@
 
     <!-- UPDATE -->
     <button (click)="onOpenEditModal(todo)">Edit</button>
+    <!-- DELETE -->
+    <button (click)="onDeleteHandler(todo.id)">Delete</button>
   </li>
 </ul>
 
