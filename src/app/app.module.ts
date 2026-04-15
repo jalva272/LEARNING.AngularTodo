@@ -6,11 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodoEditComponent } from './todo-edit/todo-edit.component';
 
 @NgModule({
   declarations: [           // register components, directives, and pipes here
     AppComponent,
-    TodoListComponent
+    TodoListComponent,
+    TodoEditComponent
   ],
   imports: [                
     BrowserModule,          // required for any web app

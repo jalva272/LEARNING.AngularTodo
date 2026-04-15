@@ -10,25 +10,7 @@
   <button type="submit">Add Todo</button>
  </form>
 
- <!-- EDIT MODAL -->
-  <div *ngIf="isEditOpen" class="modal-backdrop">
-    <div class="modal">
-      <h3>Edit Todo</h3>
-      <form (ngSubmit)="onUpdateHandler()">
-          <input type="text" name="title" placeholder="Edit title" [(ngModel)]="editTodo.title" />
-          <label>
-            <input type="checkbox" name="isComplete" [(ngModel)]="editTodo.isComplete" />
-            Completed
-          </label>
-        <button type="submit">Submit</button>
-        <button (click)="onCloseEditModal()">Close</button>
-      </form>
-    </div>
-  </div>
-
 <hr />
-
-
 
 <ul *ngIf="todos.length > 0; else noTodos">
   <li *ngFor="let todo of todos" style="margin-bottom: 12px;">
@@ -42,42 +24,31 @@
       {{ todo.createdAt | date:'short' }}
     </small>
 
-    <!-- UPDATE -->
-    <button (click)="onOpenEditModal(todo)">Edit</button>
+     <!-- UPDATE with modal window -->
+     <!-- <button (click)="onOpenEditModal(todo)">Edit</button> -->
+     <!-- UPDATE with new page -->
+     <button (click)="onEditHandler(todo)">Edit</button>
     <!-- DELETE -->
     <button (click)="onDeleteHandler(todo.id)">Delete</button>
   </li>
 </ul>
 
+ <!-- Modal window for UPDATE -->
+  <!-- <div *ngIf="isEditOpen" class="modal-backdrop">
+    <div class="modal">
+      <h3>Edit Todo</h3>
+      <form (ngSubmit)="onUpdateHandler()">
+          <input type="text" name="title" placeholder="Edit title" [(ngModel)]="editTodo.title" />
+          <label>
+            <input type="checkbox" name="isComplete" [(ngModel)]="editTodo.isComplete" />
+            Completed
+          </label>
+        <button type="submit">Submit</button>
+        <button (click)="onCloseEditModal()">Close</button>
+      </form>
+    </div>
+  </div> -->
 
 <ng-template #noTodos>
   <p>No todos yet.</p>
 </ng-template>
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <div>
-  <h3>Todos</h3>
-  
-  <label for="users">Users: </label>
-  <select name="users" id="users">
-    <option value="">Select a user</option>
-    <option *ngFor="let user of userdata" value="{{ user.id }}">{{ user.title }}</option>
-  </select>
-
-  <ul>
-    <li *ngFor="let t of todos">
-      <input type="checkbox" [checked]="t.isComplete" (change)="toggleComplete(t)" /> {{ t.title }}
-      <button (click)="remove(t)">Delete</button>
-    </li>
-  </ul>
-</div> -->

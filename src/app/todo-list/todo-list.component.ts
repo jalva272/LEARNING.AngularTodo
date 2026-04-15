@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../services/todo.service';
 import { Todo } from '../models/todo';
-import { HttpClient } from '@angular/common/http';  
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-list',
@@ -25,7 +25,7 @@ export class TodoListComponent implements OnInit {
   
 
   // INITIALIZE PRIVATE FIELDS
-  constructor(private http: HttpClient, private todoService: TodoService) {}
+  constructor(private todoService: TodoService, private router: Router) {}
 
   // USE EFFECT
   ngOnInit(): void {
@@ -66,18 +66,25 @@ export class TodoListComponent implements OnInit {
     })
   }
 
-  onOpenEditModal(todo: Todo): void {
-    console.log('editTodo state before :', this.editTodo);
+  // onOpenEditModal(todo: Todo): void {
+  //   console.log('editTodo state before :', this.editTodo);
 
-    this.editTodo = { ...todo }; // create a copy of the todo to edit
-    console.log('editTodo state after opening modal:', this.editTodo);
+  //   this.editTodo = { ...todo }; // create a copy of the todo to edit
+  //   console.log('editTodo state after opening modal:', this.editTodo);
 
-    this.isEditOpen = true; // open the edit modal
-  }
+  //   this.isEditOpen = true; // open the edit modal
+  // }
 
-  onCloseEditModal(): void {
-    this.isEditOpen = false; // close the edit modal
-  }
+  // onCloseEditModal(): void {
+  //   this.isEditOpen = false;
+  // }
+
+  onEditHandler(todo: Todo): void {
+    console.log('todo:', todo);
+
+    // navigate to /todos/{id}/edit to navigate to EditTodoComponent based on route defined in app-routing.module.ts
+    this.router.navigate(['/todos/', todo.id, 'edit']);
+  } 
 
   onUpdateHandler(): void {
     console.log('Updating todo:', this.editTodo);

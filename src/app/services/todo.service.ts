@@ -19,7 +19,7 @@ export class TodoService {
     }
 
     // GET /api/todo/{id}
-    get(id: number): Observable<Todo> {
+    getById(id: number): Observable<Todo> {
         return this.http.get<Todo>(`${this.baseUrl}/${id}`);
     }
 
