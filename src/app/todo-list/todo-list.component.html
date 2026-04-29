@@ -1,40 +1,44 @@
 <h2>Todo List</h2>
 
 <!-- CREATE -->
- <form (ngSubmit)="onCreateHandler()">
-  <input type="text" name="title" placeholder="Enter a new todo" [(ngModel)]="newTodo.title" />
+<form (ngSubmit)="onCreateHandler()">
+  <input
+    type="text"
+    name="title"
+    placeholder="Enter a new todo"
+    [(ngModel)]="newTodo.title"
+  />
   <label>
     <input type="checkbox" name="isComplete" [(ngModel)]="newTodo.isComplete" />
     Completed
   </label>
   <button type="submit">Add Todo</button>
- </form>
+</form>
 
 <hr />
 
 <ul *ngIf="todos.length > 0; else noTodos">
-  <li *ngFor="let todo of todos" style="margin-bottom: 12px;">
-    
-    <strong>{{ todo.title }}</strong> 
-    <span style="margin-left: 8px;">
-      ({{ todo.isComplete ? 'Completed' : 'Pending' }})
+  <li *ngFor="let todo of todos" style="margin-bottom: 12px">
+    <strong>{{ todo.title }}</strong>
+    <span style="margin-left: 8px">
+      ({{ todo.isComplete ? "Completed" : "Pending" }})
     </span>
 
-    <small style="margin-left: 8px; color: gray;">
-      {{ todo.createdAt | date:'short' }}
+    <small style="margin-left: 8px; color: gray">
+      {{ todo.createdAt | date: "short" }}
     </small>
 
-     <!-- UPDATE with modal window -->
-     <!-- <button (click)="onOpenEditModal(todo)">Edit</button> -->
-     <!-- UPDATE with new page -->
-     <button (click)="onEditHandler(todo)">Edit</button>
+    <!-- UPDATE with modal window -->
+    <!-- <button (click)="onOpenEditModal(todo)">Edit</button> -->
+    <!-- UPDATE with new page -->
+    <button (click)="onEditHandler(todo)">Edit</button>
     <!-- DELETE -->
     <button (click)="onDeleteHandler(todo.id)">Delete</button>
   </li>
 </ul>
 
- <!-- Modal window for UPDATE -->
-  <!-- <div *ngIf="isEditOpen" class="modal-backdrop">
+<!-- Modal window for UPDATE -->
+<!-- <div *ngIf="isEditOpen" class="modal-backdrop">
     <div class="modal">
       <h3>Edit Todo</h3>
       <form (ngSubmit)="onUpdateHandler()">
