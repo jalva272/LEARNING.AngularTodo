@@ -8,8 +8,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent {
   // component state
-  username: string = 'admin';
-  password: string = 'password';
+  username: string = '';
+  password: string = '';
 
   // initialize the component
   constructor(
@@ -23,10 +23,10 @@ export class LoginComponent {
     this.authService.login(this.username, this.password).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
-        console.log('Login successful');
+        this.router.navigate(['/todos']);
       },
       error: (err) => {
-        //
+        console.error('Login failed', err);
       },
     });
   }

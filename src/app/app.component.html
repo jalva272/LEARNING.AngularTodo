@@ -314,6 +314,8 @@
 <div class="content" role="main">
   <h1>Angular TODO</h1>
 
+  <button *ngIf="isLoggedIn" (click)="logoutHandler()">Logout</button>
+
   <nav>
     <a routerLink="/todos">Todos</a>
   </nav>
