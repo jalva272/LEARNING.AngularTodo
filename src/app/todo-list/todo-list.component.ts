@@ -5,43 +5,45 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-list',
-  templateUrl: './todo-list.component.html' 
+  templateUrl: './todo-list.component.html',
 })
-
 export class TodoListComponent implements OnInit {
   // COMPONENT STATE
   todos: Todo[] = []; // stores the list of todos fetched from the backend
-  newTodo = { // stores the title and completion status for the new todo being created
+  newTodo = {
+    // stores the title and completion status for the new todo being created
     title: '',
-    isComplete: false
-  }
+    isComplete: false,
+  };
   isEditOpen: boolean = false; // tracks whether the edit modal is open or closed
   editTodo = {
     id: 0,
     title: '',
     isComplete: false,
-    createdAt: ''
-  }
-  
+    createdAt: '',
+  };
 
   // INITIALIZE PRIVATE FIELDS
-  constructor(private todoService: TodoService, private router: Router) {}
+  constructor(
+    private todoService: TodoService,
+    private router: Router,
+  ) {}
 
   // USE EFFECT
   ngOnInit(): void {
-    this.load(); 
+    this.load();
   }
 
   load(): void {
     this.todoService.getAll().subscribe({
       next: (data: Todo[]) => {
-        console.log('JSON data received from backend:', data); 
+        console.log('JSON data received from backend:', data);
         this.todos = data;
-      }, 
+      },
       error: (error: any) => {
         console.error('Error fetching data from backend:', error);
-      }
-    })
+      },
+    });
   }
 
   // EVENT HANDLERS
@@ -56,14 +58,14 @@ export class TodoListComponent implements OnInit {
         // reset newTodo form state
         this.newTodo = {
           title: '',
-          isComplete: false
-        }
+          isComplete: false,
+        };
         // reload page to show new todo in list
         this.load();
       },
       // handle error case
-      error: (err: any) => console.error(err)
-    })
+      error: (err: any) => console.error(err),
+    });
   }
 
   // onOpenEditModal(todo: Todo): void {
@@ -84,7 +86,7 @@ export class TodoListComponent implements OnInit {
 
     // navigate to /todos/{id}/edit to navigate to EditTodoComponent based on route defined in app-routing.module.ts
     this.router.navigate(['/todos/', todo.id, 'edit']);
-  } 
+  }
 
   onUpdateHandler(): void {
     console.log('Updating todo:', this.editTodo);
@@ -96,14 +98,14 @@ export class TodoListComponent implements OnInit {
         this.load(); // reload page to show updated todo in list
       },
       // handle error case
-      error: (err: any) => console.error(err)
-    })
+      error: (err: any) => console.error(err),
+    });
   }
 
   onDeleteHandler(id: number): void {
     console.log('Deleting todo:', id);
 
-    if (!confirm("Are you sure you want to delete this todo?")) {
+    if (!confirm('Are you sure you want to delete this todo?')) {
       return;
     }
 
@@ -112,47 +114,14 @@ export class TodoListComponent implements OnInit {
       // handle successful deletion
       next: () => {
         // remove the deleted todo from component state without reloading the page
-        this.todos = this.todos.filter(todo => todo.id !== id); // filter out the deleted todo from the list
+        this.todos = this.todos.filter((todo) => todo.id !== id); // filter out the deleted todo from the list
         console.log('this.todos after deletion:', this.todos);
       },
       // handle error case
-      error: (err: any) => console.error(err)
-    })
+      error: (err: any) => console.error(err),
+    });
   }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { Component, OnInit } from '@angular/core';
 // import { TodoService } from '../services/todo.service';
